@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApplicationPractice</name>
+    </assembly>
+    <members>
+        <member name="T:WebApplicationPractice.Accounts.UserAccount">
+            <summary>
+            The useraccoutn class has the users username and password,
+            and a islogged in flag (that I may make use of later)
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.UserAccount.#ctor(System.String,System.String)">
+            <summary>
+            Simple constructor to instantiate the nbank account and set the user name and password
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.UserAccount.VerifyPassword(System.String)">
+            <summary>
+             Check if the provided password matches the password
+            </summary>
+            <param name="FrontEndProvidedPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="T:WebApplicationPractice.Accounts.Users">
+            <summary>
+            This class stores a list of user accounts and the currently logged in user
+            It logs users in and out, and provides some basic validation.
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.#ctor">
+            <summary>
+            Simple constructor to create a new list and set the current user to null.
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.CreateNewAccount(System.String,System.String)">
+            <summary>
+            Passes the username and password to the user account class to create a new account
+            </summary>
+            <param name="userName"> the user name</param>
+            <param name="passWord"> the password </param>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.login(System.String,System.String)">
+            <summary>
+            Checks the user name and password against the list of current accounts in order
+            to log a user in if they provide the right info
+            </summary>
+            <param name="userName"></param>
+            <param name="passWord"></param>
+            <returns> true if the user is found, false if not</returns>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.logout">
+            <summary>
+            Simple logout function - sets the current user to null, 
+            as well as turning the flag off in the useraccount class.
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.GetCurrentUser">
+            <summary>
+            Simple function to return the username of the currently logged in user
+            Made to help test the swagger API page
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Accounts.Users.ValidateAccountInfo(System.Collections.Generic.List{System.String})">
+            <summary>
+            Validate the passed in username and password - the pass word can be anything, username can have no special characters.
+            </summary>
+            <param name="AccountInfo"></param>
+            <returns> true if the api was given correctly formatted data</returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.CreateAccount(System.Collections.Generic.List{System.String})">
+            <summary>
+            Create an account - the password can be anything, but the username cannot have any special characters. Example Input: ["username", "password"]
+            Json Format: ["username_with_no_special_characters", "Password_were_anything_goes"]
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.login(System.Collections.Generic.List{System.String})">
+            <summary>
+            Login to an already exsisting account - input follows the same rules as creating an account - Example Input: ["username", "password"]
+            </summary>
+            <param name="body"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.CurrentUser">
+            <summary>
+            Get the currently logged in user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.logout">
+            <summary>
+            Log out - change the current user to null.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.Balance">
+            <summary>
+            Get the bank balance of the current user.
+            </summary>
+            <returns>Bank balance</returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.DepositMoney(System.Int32)">
+            <summary>
+            Deposit money into the bank account of the current user. example input: 25
+            </summary>
+            <param name="ammount"> has to be an integer</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.WithdrawMoney(System.Int32)">
+            <summary>
+            Withdraw money from the current users account, Example input: 25
+            </summary>
+            <param name="ammount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApplicationPractice.Controllers.HomeController.History">
+            <summary>
+            Get the transaction history for the current user.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebApplicationPractice.Ledger.Banking">
+            <summary>
+            The banking class holds the bank accounts balance and transaction history
+            It also does withdrawals and deposits - nothing complicated.
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Ledger.Banking.#ctor">
+            <summary>
+            Constructor - start out new banking accounts with $50
+            </summary>
+        </member>
+        <member name="M:WebApplicationPractice.Ledger.Banking.RecordWithdrawal(System.Int32)">
+            <summary>
+            Withdraw money from the balnce - ammount turned negative in the controller
+            Don't allow a user to go below 0.
+            </summary>
+            <param name="withdrawal"></param>
+        </member>
+        <member name="M:WebApplicationPractice.Ledger.Banking.RecordDeposit(System.Int32)">
+            <summary>
+            Deposit money onto the balance
+            </summary>
+            <param name="deposit"></param>
+        </member>
+        <member name="M:WebApplicationPractice.Ledger.Banking.AddToTransactionHistory(System.Int32)">
+            <summary>
+            Save the current transaction onto the transaction history list
+            </summary>
+            <param name="ChangeAmmount"></param>
+        </member>
+        <member name="M:WebApplicationPractice.Ledger.Banking.GetHistory">
+            <summary>
+            Get an accounts entire transaction history.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WebApplicationPractice.Ledger.TransactionHistoryModel">
+            <summary>
+            This class is a model for the transanction history of a bank account
+            Shows what the blance is after and before a transaction, also the 
+            ammount the blance changed.
+            </summary>
+        </member>
+    </members>
+</doc>
